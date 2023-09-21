@@ -21,6 +21,6 @@ public class Date implements Comparable<Date> {
 
     }
     public static void main() {
-
+        System.out.println("Hello");
     }
 }
