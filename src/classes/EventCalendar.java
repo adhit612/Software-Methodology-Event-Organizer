@@ -1,6 +1,24 @@
 package classes;
 
 public class EventCalendar {
+
+    /**
+     * TO DO:
+     * Implement constructor
+     * implement find
+     * implement grow
+     * implement add
+     * implement remove
+     * implement contains
+     * implement print
+     * implement printByDate()
+     * implement printByCampus()
+     * implement printByDepartment
+
+     * COMPLETED:
+     *
+     */
+
     private Event [] events; //the array holding the list of events
     private int numEvents;
     public EventCalendar(Event[] events, int numEvents) {
@@ -9,6 +27,7 @@ public class EventCalendar {
 
     private int find(Event event) {
         //search event in the list
+        return 0;
     }
 
     private void grow() {
@@ -17,14 +36,17 @@ public class EventCalendar {
 
     public boolean add(Event event) {
         //add event to calendar, handle array resizing
+        return false;
     }
 
     public boolean remove(Event event) {
         //remove event from calendar, handle array resizing
+        return false;
     }
 
     public boolean contains(Event event) {
         //
+        return false;
     }
 
     public void print() {
