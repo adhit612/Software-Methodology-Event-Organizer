@@ -70,7 +70,7 @@ public class Date implements Comparable<Date> {
             }
         }
 
-        if(checkIfWithinBounds(this.month,this.year,this.day) > 0){ //current date is after the time limit
+        if(checkIfWithinBounds(this.month, this.year, this.day) > 0){ //current date is after the time limit
             System.out.println("in not within modes");
             return false;
         }
@@ -116,14 +116,14 @@ public class Date implements Comparable<Date> {
     private int checkIfWithinBounds(int month, int year, int day){
         Calendar aheadDate = Calendar.getInstance();
         aheadDate.add(Calendar.MONTH, 6);
-        int updatedDay = Calendar.DAY_OF_MONTH;
-        aheadDate.set(Calendar.DAY_OF_MONTH,updatedDay ++);
+        System.out.println(aheadDate.getTime());
 
         //current date
         Calendar currDate = Calendar.getInstance();
-        currDate.set(Calendar.DAY_OF_MONTH,this.day);
-        currDate.set(Calendar.MONTH,this.month);
-        currDate.set(Calendar.YEAR,this.year);
+        currDate.set(Calendar.DAY_OF_MONTH, day);
+        currDate.set(Calendar.MONTH, month);
+        currDate.set(Calendar.YEAR, year);
+        System.out.println(currDate.getTime());
 
         return currDate.compareTo(aheadDate);
     }
@@ -131,7 +131,7 @@ public class Date implements Comparable<Date> {
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Date){
-            Date date= (Date)obj;
+            Date date = (Date) obj;
             return (date.day == this.day) && (date.month == this.month)
                     && (date.year == this.year);
         }
@@ -146,9 +146,9 @@ public class Date implements Comparable<Date> {
         one.set(Calendar.YEAR,this.year);
 
         Calendar two = Calendar.getInstance();
-        one.set(Calendar.DAY_OF_MONTH,date.day);
-        one.set(Calendar.MONTH,date.month);
-        one.set(Calendar.YEAR,date.year);
+        two.set(Calendar.DAY_OF_MONTH,date.day);
+        two.set(Calendar.MONTH,date.month);
+        two.set(Calendar.YEAR,date.year);
 
         return one.compareTo(two);
     }
@@ -158,7 +158,7 @@ public class Date implements Comparable<Date> {
 
     }
     public static void main(String [] args) {
-        Date d = new Date(2024,2,29);
+        Date d = new Date(2024,1,29);
         System.out.println(d.isValid());
     }
 }
