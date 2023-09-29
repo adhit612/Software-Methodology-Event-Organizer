@@ -1,10 +1,12 @@
 package classes;
 
 import java.util.Calendar;
+import java.util.Optional;
 
 public class Date implements Comparable<Date> {
     /**
      * TO DO:
+     * test cases
      *
      * COMPLETED:
      * equals()
@@ -38,10 +40,11 @@ public class Date implements Comparable<Date> {
     public static final int THIRTYONEMAX = 31;
     public static final int THIRTYMAX = 30;
 
-    public Date(int year, int month, int day) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
+    public Date(String date) {
+        String [] parts = date.split("/");
+        this.year = Integer.parseInt(parts[2]);
+        this.month = Integer.parseInt(parts[0]);
+        this.day = Integer.parseInt(parts[1]);
     }
 
     public boolean isValid(){
@@ -50,6 +53,7 @@ public class Date implements Comparable<Date> {
 
         //check if valid month
         if(!isValidMonth(this.month)){
+            System.out.println("Not valid month for month " + this.month);
             return false;
         }
 
@@ -59,13 +63,16 @@ public class Date implements Comparable<Date> {
             return false;
         }
         else if(!isLeap(this.year) && this.month == FEB && this.day > FEBNONLEAPMAX){
+            System.out.println("In leap non valid");
             return false;
         }
         else if(hasThirtyOneDays(this.month) && this.day > THIRTYONEMAX){
+            System.out.println("in has thirty one days");
             return false;
         }
         else{
             if(this.day > THIRTYMAX){
+                System.out.println("in else");
                 return false;
             }
         }
@@ -76,6 +83,7 @@ public class Date implements Comparable<Date> {
         }
 
         //all else fails...
+        System.out.println("Valid date");
         return true;
     }
 
@@ -87,20 +95,25 @@ public class Date implements Comparable<Date> {
     }
 
     private boolean isLeap(int year){
+//        System.out.println("In isLeap with " + year);
         if(year%QUADRENNIAL == 0){
             if(year%CENTENNIAL == 0){
                 if(year%QUATERCENTENNIAL == 0){
+//                    System.out.println("Is leap year");
                      return true;
                 }
                 else{
+//                    System.out.println("In not leap year 2");
                     return false;
                 }
             }
             else{
+//                System.out.println("Is leap year 2");
                 return true;
             }
         }
         else{
+//            System.out.println("In not leap year 3");
             return false;
         }
     }
@@ -120,9 +133,9 @@ public class Date implements Comparable<Date> {
 
         //current date
         Calendar currDate = Calendar.getInstance();
-        currDate.set(Calendar.DAY_OF_MONTH, day);
-        currDate.set(Calendar.MONTH, month);
-        currDate.set(Calendar.YEAR, year);
+        currDate.set(Calendar.DAY_OF_MONTH, this.day);
+        currDate.set(Calendar.MONTH, this.month);
+        currDate.set(Calendar.YEAR, this.year);
         System.out.println(currDate.getTime());
 
         return currDate.compareTo(aheadDate);
@@ -139,26 +152,63 @@ public class Date implements Comparable<Date> {
     }
 
     @Override
-    public int compareTo(Date date) {
-        Calendar one = Calendar.getInstance();
-        one.set(Calendar.DAY_OF_MONTH,this.day);
-        one.set(Calendar.MONTH,this.month);
-        one.set(Calendar.YEAR,this.year);
+    public int compareTo(Date date){
 
-        Calendar two = Calendar.getInstance();
-        two.set(Calendar.DAY_OF_MONTH,date.day);
-        two.set(Calendar.MONTH,date.month);
-        two.set(Calendar.YEAR,date.year);
+        if(this.year < date.year){
+            return -1;
+        }
+        else if(this.month < date.month){
+            return -1;
+        }
+        else if(this.day < date.day){
+            return -1;
+        }
+        else if(this.day == date.day && this.month == date.month && this.year == date.year) {
+            return 0;
+        }
 
-        return one.compareTo(two);
+//        Calendar one = Calendar.getInstance();
+//        one.set(Calendar.DAY_OF_MONTH,this.day);
+//        one.set(Calendar.MONTH,this.month);
+//        one.set(Calendar.YEAR,this.year);
+//
+//        Calendar two = Calendar.getInstance();
+//        two.set(Calendar.DAY_OF_MONTH,date.day);
+//        two.set(Calendar.MONTH,date.month);
+//        two.set(Calendar.YEAR,date.year);
+
+        return 1;
+    }
+
+    public static void main(String [] args) {
+        testDaysInFeb_NonLeap();
+        testDaysInFeb_Leap();
     }
 
 
     private static void testDaysInFeb_NonLeap() {
-
+        Date date = new Date("2/29/2023");
+        boolean expectedOut = false;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case 1 => # of days in February in a non-leap year");
+        if(expectedOut == actualOutput){
+            System.out.println("succeeded");
+        }
+        else{
+            System.out.println("failed");
+        }
     }
-    public static void main(String [] args) {
-        Date d = new Date(2024,1,29);
-        System.out.println(d.isValid());
+
+    private static void testDaysInFeb_Leap() {
+        Date date = new Date("2/29/2024");
+        boolean expectedOut = true;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case 2 => # of days in February in a leapr");
+        if(expectedOut == actualOutput){
+            System.out.println("succeeded");
+        }
+        else{
+            System.out.println("failed");
+        }
     }
 }
