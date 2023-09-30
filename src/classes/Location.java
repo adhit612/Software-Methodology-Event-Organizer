@@ -16,11 +16,11 @@ public enum Location {
         this.campus = campus;
     }
 
-    private String getBuilding(){
+    public String getBuilding(){
         return building;
     }
 
-    private String getCampus(){
+    public String getCampus(){
         return campus;
     }
 }

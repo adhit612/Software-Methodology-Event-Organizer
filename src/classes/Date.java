@@ -6,15 +6,13 @@ import java.util.Optional;
 public class Date implements Comparable<Date> {
     /**
      * TO DO:
-     * test cases
-     * timeFrameValid check
-     * take into account that month entered is actually 1 month ahead
      *
      * COMPLETED:
      * equals()
      * isValid()
      * implement compareTo()
      * implement constructor
+     * test cases
      */
     private int year;
     private int month;
@@ -24,18 +22,18 @@ public class Date implements Comparable<Date> {
     public static final int CENTENNIAL = 100;
     public static final int QUATERCENTENNIAL = 400;
 
-    public static final int JAN = 1;
-    public static final int FEB = 2;
-    public static final int MAR = 3;
-    public static final int APR = 4;
-    public static final int MAY = 5;
-    public static final int JUN = 6;
-    public static final int JUL = 7;
-    public static final int AUG = 8;
-    public static final int SEP = 9;
-    public static final int OCT = 10;
-    public static final int NOV = 11;
-    public static final int DEC = 12;
+    public static final int JAN = 0;
+    public static final int FEB = 1;
+    public static final int MAR = 2;
+    public static final int APR = 3;
+    public static final int MAY = 4;
+    public static final int JUN = 5;
+    public static final int JUL = 6;
+    public static final int AUG = 7;
+    public static final int SEP = 8;
+    public static final int OCT = 9;
+    public static final int NOV = 10;
+    public static final int DEC = 11;
 
     public static final int FEBLEAPMAX = 29;
     public static final int FEBNONLEAPMAX = 28;
@@ -45,7 +43,7 @@ public class Date implements Comparable<Date> {
     public Date(String date) {
         String [] parts = date.split("/");
         this.year = Integer.parseInt(parts[2]);
-        this.month = Integer.parseInt(parts[0]);
+        this.month = Integer.parseInt(parts[0]) - 1;
         this.day = Integer.parseInt(parts[1]);
     }
 
@@ -144,6 +142,11 @@ public class Date implements Comparable<Date> {
     }
 
     @Override
+    public String toString() {
+        return this.month + 1 + "/" + this.day + "/" + this.year;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if(obj instanceof Date) {
             Date date = (Date) obj;
@@ -215,7 +218,7 @@ public class Date implements Comparable<Date> {
         }
     }
     private static void testMonth_OutOfRange() {
-        Date date = new Date("2/20/2024");
+        Date date = new Date("1/30/2024");
         boolean expectedOut = true;
         boolean actualOutput = date.isValid();
         System.out.println("Test case 3 => Is month in 6-month frame?");

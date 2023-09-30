@@ -10,11 +10,14 @@ public class Contact {
     private Department department;
     private String email;
 
-    public Contact(Department dep, String email) {
-        this.department = dep;
+    public Contact(Department department, String email) {
+        this.department = department;
         this.email = email;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
     public String getEmail() {
         return email;
     }

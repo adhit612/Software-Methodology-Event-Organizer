@@ -26,6 +26,11 @@ public class Event implements Comparable<Event> {
     }
 
     @Override
+    public String toString() {
+        return "[Event Date: " + this.date.toString() + "] [Start: " + this.startTime + "] [End: " + this.startTime + duration + "] @" + this.location + "(" + this.location.getBuilding() + "," + this.location.getCampus() + ") [Contact: " + this.contact.getDepartment() + "," + this.contact.getEmail() + "]";
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if(obj instanceof Event){
             Event event = (Event)obj;
