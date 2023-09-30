@@ -17,7 +17,7 @@ public class Event implements Comparable<Event> {
     private Contact contact;
     private int duration;
 
-    public Event(Date date, Timeslot startTime, Location location, Contact contact, int duration){
+    public Event(Date date, Timeslot startTime, Location location, Contact contact, int duration) {
         this.date = date;
         this.startTime = startTime;
         this.location = location;
@@ -26,11 +26,11 @@ public class Event implements Comparable<Event> {
     }
 
     @Override
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         if(obj instanceof Event){
             Event event = (Event)obj;
             return event.date.equals(this.date) && event.startTime.equals(this.startTime)
-                    && event.location.equals(this.location);
+                    && event.location.equals(this.location) && event.contact.equals(this.contact);
         }
         return false;
     }
