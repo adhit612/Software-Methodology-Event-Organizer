@@ -1,5 +1,9 @@
 package classes;
 
+/**
+ * We need it so that when the user types morning, the system reads it as Timeslot.MORNING, so on and so forth
+ * Right now the EvenCalendar class manually needs Timeslot.MORNING when creating an event
+ */
 public enum Timeslot {
 
     MORNING(10,30),
