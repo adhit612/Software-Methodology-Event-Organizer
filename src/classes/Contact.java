@@ -39,7 +39,7 @@ public class Contact {
         for(int i = initial; i < len; i++) {
             checker += this.email.charAt(i);
         }
-        if(checker.equals("@rutgers.edu")) {
+        if(checker.equals("@rutgers.edu") && this.email.charAt(0) != '@') {
             mail = true;
         }
         else {
@@ -55,7 +55,7 @@ public class Contact {
 
     public static void main(String[] args) {
         Department d = Department.CS;
-        Contact contact = new Contact(d, "bab@rutgers.edu");
+        Contact contact = new Contact(d, "cs@rutgers.edu");
         System.out.println(contact.isValid());
     }
 }
