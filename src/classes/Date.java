@@ -193,7 +193,7 @@ public class Date implements Comparable<Date> {
 
 
     private static void testDaysInFeb_NonLeap() {
-        Date date = new Date("2/29/2023");
+        Date date = new Date("2/30/2023");
         boolean expectedOut = false;
         boolean actualOutput = date.isValid();
         System.out.println("Test case 1 => # of days in February in a non-leap year");
