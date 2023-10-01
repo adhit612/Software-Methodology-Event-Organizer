@@ -1,7 +1,5 @@
 package classes;
 
-import java.sql.Time;
-
 public class EventCalendar {
 
     /**
@@ -23,6 +21,10 @@ public class EventCalendar {
 
     private Event [] events; //the array holding the list of events
     private int numEvents;
+    public static final int NOT_FOUND = -1;
+    public static final int ARRAY_SIZE_ADDER = 4;
+
+
     public EventCalendar(Event[] events, int numEvents) {
         this.events = events;
         this.numEvents = numEvents;
@@ -35,12 +37,12 @@ public class EventCalendar {
                 return i;
             }
         }
-        return -1;
+        return NOT_FOUND;
     }
 
     private void grow() {
         //increase capacity by 4
-        Event[] newEvents = new Event[this.events.length + 4];
+        Event[] newEvents = new Event[this.events.length + ARRAY_SIZE_ADDER];
         for(int i = 0; i < this.events.length; i++) {
             newEvents[i] = this.events[i];
         }
@@ -66,19 +68,13 @@ public class EventCalendar {
     public boolean remove(Event event) {
         //remove event from calendar, handle array resizing
         Event[] newEvents = new Event[this.events.length];
-        int j = -1;
-        for(int i = 0; i < this.events.length; i++) {
-            if(this.events[i].equals(event)){
-                j = i;
-            }
-        }
-        if(j == -1) {
+        int j = find(event);
+        if(j == NOT_FOUND) {
             return false;
         }
-
         int k = 0;
-        for(int x = 0; x < this.events.length; x++){
-           if(x == j){
+        for(int x = 0; x < this.events.length; x++) {
+           if(x == j) {
                continue;
            }
            newEvents[k] = this.events[x];
@@ -92,6 +88,9 @@ public class EventCalendar {
 
     public boolean contains(Event event) {
         for(int i = 0; i < this.events.length; i ++){
+            if(this.events[i] == null) {
+                return false;
+            }
             if(this.events[i].equals(event)){
                 return true;
             }
@@ -100,11 +99,61 @@ public class EventCalendar {
     }
 
     public void print() {
-        //print the array as is
+        for(int i = 0; i < this.events.length; i++) {
+            if(this.events[i] != null) {
+                System.out.println(this.events[i].toString());
+            }
+        }
     }
 
     public void printByDate() {
-        //print events sorted by date and timeslot
+        /*
+
+        int i, j;
+        Event temp;
+        boolean swapped;
+        for (i = 0; i < this.events.length - 1; i++) {
+            swapped = false;
+            for (j = 0; j < this.events.length - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+
+                    // Swap arr[j] and arr[j+1]
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+
+            // If no two elements were
+            // swapped by inner loop, then break
+            if (swapped == false)
+                break;
+        }
+        for(int i = 0; i < this.events.length-1; i++) {
+            if(this.events[i] != null && this.events[i+1] != null) {
+                if(this.events[i].compareTo(this.events[i+1]) < 0) {
+                    continue;
+                }
+                else if(this.events[i].compareTo(this.events[i+1]) > 0) {
+                    Event temp = this.events[i];
+                    this.events[i] = this.events[i+1];
+                    this.events[i+1] = temp;
+                }
+                else {
+                    if(this.events[i].getTimeSlot().compareTo(this.events[i+1].getTimeSlot()) < 0) {
+                        continue;
+                    }
+                    else if(this.events[i].getTimeSlot().compareTo(this.events[i+1].getTimeSlot())) {
+                        Event temp = this.events[i];
+                        this.events[i] = this.events[i+1];
+                        this.events[i+1] = temp;
+                    }
+                }
+            }
+        }
+
+         */
     }
 
     public void printByCampus() {
@@ -128,9 +177,12 @@ public class EventCalendar {
         Event event1 = new Event(date1, Timeslot.EVENING, Location.MU302, contact1, 30);
         eventCalendar.add(event1);
 
-        System.out.println(events[0].toString());
-        System.out.println(events[1].toString());
-        eventCalendar.remove(event1);
-        System.out.println(events[1].toString());
+        eventCalendar.print();
+
+        //System.out.println(events[0].toString());
+        //System.out.println(events[1].toString());
+        //System.out.println(eventCalendar.remove(event));
+        //System.out.println(eventCalendar.remove(event1));
+
     }
 }
