@@ -1,14 +1,16 @@
 package classes;
 
+import java.sql.Time;
+
 public class Event implements Comparable<Event> {
 
     /**
      * TO DO:
-     * Override toString()
-     * Add compareTo()
 
      * COMPLETED:
      * Override equals()
+     * Add compareTo()
+     * Override toString()
      */
 
     private Date date;
@@ -41,10 +43,46 @@ public class Event implements Comparable<Event> {
     }
 
     @Override
-    public int compareTo(Event event) {
-        return 0;
+    public int compareTo(Event event){
+        if(this.date.compareTo(event.date) == -1){ //this is earlier than event
+            return -1;
+        }
+        else if(this.date.compareTo(event.date) == 1){ //this is later than event
+            return 1;
+        }
+        else{ //equal dates
+            if(this.startTime == event.startTime){
+                return 0;
+            }
+            else if(this.startTime == Timeslot.MORNING && event.startTime == Timeslot.EVENING || this.startTime == Timeslot.MORNING && event.startTime == Timeslot.AFTERNOON){
+                return -1;
+            }
+            else if(this.startTime == Timeslot.AFTERNOON && event.startTime == Timeslot.EVENING){
+                return -1;
+            }
+            else{
+                return 1;
+            }
+        }
     }
 
+    public Date getDate() {
+        return this.date;
+    }
 
+    public Timeslot getTimeSlot(){
+        return this.startTime;
+    }
 
+    public Location getLocation(){
+        return this.location;
+    }
+
+    public Contact getContact(){
+        return this.contact;
+    }
+
+    public int getDuration(){
+        return this.duration;
+    }
 }
