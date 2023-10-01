@@ -6,12 +6,6 @@ public class EventCalendar {
 
     /**
      * TO DO:
-     * Implement constructor
-     * implement find
-     * implement grow
-     * implement add
-     * implement remove
-     * implement contains
      * implement print
      * implement printByDate()
      * implement printByCampus()
@@ -19,7 +13,12 @@ public class EventCalendar {
      * Timeslot add toString so user can type morning, afternoon, evening
 
      * COMPLETED:
-     *
+     *Implement constructor
+     * implement find
+     * implement grow
+     * implement add
+     * implement remove
+     * implement contains
      */
 
     private Event [] events; //the array holding the list of events
@@ -32,7 +31,7 @@ public class EventCalendar {
     private int find(Event event) {
         //search event in the list
         for(int i = 0; i < this.events.length; i++) {
-            if(this.events[i] == event) {
+            if(this.events[i].equals(event)) {
                 return i;
             }
         }
@@ -69,26 +68,34 @@ public class EventCalendar {
         Event[] newEvents = new Event[this.events.length];
         int j = -1;
         for(int i = 0; i < this.events.length; i++) {
-            if(this.events[i] == event) {
+            if(this.events[i].equals(event)){
                 j = i;
             }
         }
         if(j == -1) {
             return false;
         }
-        for(int x = 0, k = 0; x < this.events.length; x++){
-            if(x == j) {
-                continue;
-            }
-            newEvents[k++] = this.events[x];
+
+        int k = 0;
+        for(int x = 0; x < this.events.length; x++){
+           if(x == j){
+               continue;
+           }
+           newEvents[k] = this.events[x];
+           k ++;
         }
+
         this.numEvents--;
         this.events = newEvents;
         return true;
     }
 
     public boolean contains(Event event) {
-        //
+        for(int i = 0; i < this.events.length; i ++){
+            if(this.events[i].equals(event)){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -125,7 +132,5 @@ public class EventCalendar {
         System.out.println(events[1].toString());
         eventCalendar.remove(event1);
         System.out.println(events[1].toString());
-
-
     }
 }
