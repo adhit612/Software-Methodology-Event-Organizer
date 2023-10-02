@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
  * Elaborate.
  * @author Abhishek Thakare, Adhit Thakur
  */
-
 public class EventOrganizer {
     /**
      * TO DO:

@@ -7,7 +7,6 @@ import java.util.Calendar;
  * Elaborate.
  * @author Abhishek Thakare, Adhit Thakur
  */
-
 public class Date implements Comparable<Date> {
     /**
      * TO DO:
@@ -203,13 +202,14 @@ public class Date implements Comparable<Date> {
 
     public static void main(String[] args) {
         testDaysInFeb_NonLeap();
-        testFutureDatesOutOfRange();
-        testPastDateOutOfRange();
+        testDaysInFeb_Leap();
         testDateFormatting();
         testMaxDaysInOct();
-        testDaysInFeb_Leap();
         testMonth_OutOfRange();
         testLeadingZeros();
+        testFutureDatesOutOfRange();
+        testPastDateOutOfRange();
+
     }
 
     private static void testDaysInFeb_NonLeap() {
@@ -225,13 +225,75 @@ public class Date implements Comparable<Date> {
             System.out.println("failed");
         }
     }
-
+    private static void testDaysInFeb_Leap() {
+        Date date = new Date("2/29/2024");
+        boolean expectedOut = true;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case 2 => # of days in February"
+                + " in a leap yr");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
+    private static void testDateFormatting() {
+        Date date = new Date("05/08/24");
+        boolean expectedOut = false;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case 3 => Check if date"
+                + " is entered properly");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
+    private static void testMaxDaysInOct() {
+        Date date = new Date("10/32/2023");
+        boolean expectedOut = false;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case 4 => Should not allow days past"
+                + " maximum of October");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
+    private static void testMonth_OutOfRange() {
+        Date date = new Date("1/30/2024");
+        boolean expectedOut = true;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case 5 => Is month in 6-month frame?");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
+    private static void testLeadingZeros() {
+        Date date = new Date("00012/00010/0002023");
+        boolean expectedOut = true;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case 6 => Check effect of leading 0's");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
     private static void testFutureDatesOutOfRange() {
         Date date = new Date("5/20/2024");
         int expectedOut = 1;
         int actualOutput = date.checkIfWithinBounds(date.getMonth(),
                 date.getYear(), date.getDay());
-        System.out.println("Test case 2 => Days that are outside"
+        System.out.println("Test case 7 => Days that are outside"
                 + " of 6-month range");
         if (expectedOut == actualOutput) {
             System.out.println("succeeded");
@@ -246,75 +308,7 @@ public class Date implements Comparable<Date> {
         int expectedOut = 1;
         int actualOutput = date.checkIfInPast(date.getMonth(),
                 date.getYear(), date.getDay());
-        System.out.println("Test case 3 => Days that are in the past");
-        if (expectedOut == actualOutput) {
-            System.out.println("succeeded");
-        }
-        else {
-            System.out.println("failed");
-        }
-    }
-
-    private static void testDateFormatting() {
-        Date date = new Date("05/08/24");
-        boolean expectedOut = false;
-        boolean actualOutput = date.isValid();
-        System.out.println("Test case 4 => Check if date"
-                + " is entered properly");
-        if (expectedOut == actualOutput) {
-            System.out.println("succeeded");
-        }
-        else {
-            System.out.println("failed");
-        }
-    }
-
-    private static void testMaxDaysInOct() {
-        Date date = new Date("10/32/2023");
-        boolean expectedOut = false;
-        boolean actualOutput = date.isValid();
-        System.out.println("Test case 5 => Should not allow days past"
-                + " maximum of October");
-        if (expectedOut == actualOutput) {
-            System.out.println("succeeded");
-        }
-        else {
-            System.out.println("failed");
-        }
-    }
-
-    private static void testDaysInFeb_Leap() {
-        Date date = new Date("2/29/2024");
-        boolean expectedOut = true;
-        boolean actualOutput = date.isValid();
-        System.out.println("Test case 6 => # of days in February"
-                + " in a leap yr");
-        if (expectedOut == actualOutput) {
-            System.out.println("succeeded");
-        }
-        else {
-            System.out.println("failed");
-        }
-    }
-
-    private static void testMonth_OutOfRange() {
-        Date date = new Date("1/30/2024");
-        boolean expectedOut = true;
-        boolean actualOutput = date.isValid();
-        System.out.println("Test case 7 => Is month in 6-month frame?");
-        if (expectedOut == actualOutput) {
-            System.out.println("succeeded");
-        }
-        else {
-            System.out.println("failed");
-        }
-    }
-
-    private static void testLeadingZeros() {
-        Date date = new Date("00012/00010/0002023");
-        boolean expectedOut = true;
-        boolean actualOutput = date.isValid();
-        System.out.println("Test case 8 => Check effect of leading 0's");
+        System.out.println("Test case 8 => Days that are in the past");
         if (expectedOut == actualOutput) {
             System.out.println("succeeded");
         }

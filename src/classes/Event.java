@@ -5,7 +5,6 @@ package classes;
  * Elaborate.
  * @author Abhishek Thakare, Adhit Thakur
  */
-
 public class Event implements Comparable<Event> {
 
     /**

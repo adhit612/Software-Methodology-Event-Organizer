@@ -5,7 +5,6 @@ package classes;
  * Elaborate.
  * @author Abhishek Thakare, Adhit Thakur
  */
-
 public enum Department {
     CS {
         @Override
