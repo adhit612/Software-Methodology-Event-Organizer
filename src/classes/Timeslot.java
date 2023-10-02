@@ -6,9 +6,24 @@ package classes;
  */
 public enum Timeslot {
 
-    MORNING(10,30),
-    AFTERNOON(2,0),
-    EVENING(6,30);
+    MORNING(10,30) {
+        @Override
+        public String toString() {
+            return "10:30am";
+        }
+    },
+    AFTERNOON(2,0) {
+        @Override
+        public String toString() {
+            return "2:00pm";
+        }
+    },
+    EVENING(6,30) {
+        @Override
+        public String toString() {
+            return "6:30pm";
+        }
+    };
 
     private final int hours;
     private final int mins;
@@ -18,11 +33,11 @@ public enum Timeslot {
         this.mins = mins;
     }
 
-    private int getHours(){
+    public int getHours(){
         return hours;
     }
 
-    private int getMins(){
+    public int getMins(){
         return mins;
     }
 }

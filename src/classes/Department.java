@@ -1,7 +1,36 @@
 package classes;
 
 public enum Department {
-    CS, EE, ITI, MATH, BAIT; //constants
+    CS {
+       @Override
+       public String toString() {
+           return "Computer Science";
+       }
+    },
+    EE {
+        @Override
+        public String toString() {
+            return "Electrical Engineering";
+        }
+    },
+    ITI {
+        @Override
+        public String toString() {
+            return "Information Technology and Informatics";
+        }
+    },
+    MATH {
+        @Override
+        public String toString() {
+            return "Mathematics";
+        }
+    },
+    BAIT {
+        @Override
+        public String toString() {
+            return "Business Analytics and Information Technology";
+        }
+    }; //constants
 
     public static void main(String[] args) {
 
@@ -10,12 +39,6 @@ public enum Department {
     }
 
 
-    /*
-    @Override
-    public String toString() {
-
-    }
-     */
 
 
 }
