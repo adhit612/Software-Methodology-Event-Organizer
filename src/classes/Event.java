@@ -1,10 +1,5 @@
 package classes;
 
-import com.sun.source.doctree.BlockTagTree;
-
-import java.sql.Time;
-import java.util.Calendar;
-
 public class Event implements Comparable<Event> {
 
     /**
@@ -65,9 +60,9 @@ public class Event implements Comparable<Event> {
         }
 
         if(endMinute == 0) {
-            return "[Event Date: " + this.date.toString() + "] [Start: " + this.startTime.toString() + beginAttachment + "] [End: " + endHour + ":" + endMinute + "0" + endAttachment + "] @" + this.location + "(" + this.location.getBuilding() + "," + this.location.getCampus() + ") [Contact: " + this.contact.getDepartment().toString() + ", " + this.contact.getEmail() + "]";
+            return "[Event Date: " + this.date.toString() + "] [Start: " + this.startTime.toString() + beginAttachment + "] [End: " + endHour + ":" + endMinute + "0" + endAttachment + "] @" + this.location + "(" + this.location.getBuilding() + ", " + this.location.getCampus() + ") [Contact: " + this.contact.getDepartment().toString() + ", " + this.contact.getEmail() + "]";
         }
-        return "[Event Date: " + this.date.toString() + "] [Start: " + this.startTime.toString() + beginAttachment + "] [End: " + endHour + ":" + endMinute + endAttachment + "] @" + this.location + "(" + this.location.getBuilding() + "," + this.location.getCampus() + ") [Contact: " + this.contact.getDepartment().toString() + ", " + this.contact.getEmail() + "]";
+        return "[Event Date: " + this.date.toString() + "] [Start: " + this.startTime.toString() + beginAttachment + "] [End: " + endHour + ":" + endMinute + endAttachment + "] @" + this.location + "(" + this.location.getBuilding() + ", " + this.location.getCampus() + ") [Contact: " + this.contact.getDepartment().toString() + ", " + this.contact.getEmail() + "]";
     }
 
     @Override
@@ -131,14 +126,85 @@ public class Event implements Comparable<Event> {
     }
 
     public static void main(String[] args) {
+        testTimeChangeFromAMtoPM();
+        testCompareToForEqualDates();
+        testTwoEventsEqual();
+        testTwoEventsNotEqual();
+    }
+
+    private static void testTimeChangeFromAMtoPM() {
+        Date date = new Date("1/30/2024");
         Contact contact = new Contact(Department.CS, "cs@rutgers.edu");
-        Date date = new Date("2/24/2024");
-        Event event = new Event(date, Timeslot.MORNING, Location.HLL114, contact, 30);
+        Event event = new Event(date, Timeslot.MORNING, Location.ARC103, contact, 120);
+        String expectedOutput = "[Event Date: 1/30/2024] [Start: 10:30am] [End: 12:30pm] @ARC103(Allison Road Classroom, Busch) [Contact: Computer Science, cs@rutgers.edu]";
+        String actualOutput = event.toString();
+        System.out.println("Test case 1 => Check if time changes from AM to PM using toString() method");
+        if(expectedOutput.equals(actualOutput)) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
 
+    }
+    private static void testCompareToForEqualDates() {
+        Date date1 = new Date("3/12/2024");
+        Contact contact1 = new Contact(Department.BAIT, "bait@rutgers.edu");
+        Event event1 = new Event(date1, Timeslot.MORNING, Location.ARC103, contact1, 60);
+
+        Date date2 = new Date("3/12/2024");
+        Contact contact2 = new Contact(Department.ITI, "iti@rutgers.edu");
+        Event event2 = new Event(date2, Timeslot.AFTERNOON, Location.HLL114, contact2, 30);
+
+        int expectedOutput = -1;
+        int actualOutput = event1.compareTo(event2);
+
+        System.out.println("Test case 2 => Check if compareTo compares Timeslots if Dates are equal");
+        if(expectedOutput == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
+    private static void testTwoEventsEqual() {
+        Date date1 = new Date("12/25/2023");
         Contact contact1 = new Contact(Department.CS, "cs@rutgers.edu");
-        Date date1 = new Date("2/24/2024");
-        Event event1 = new Event(date1, Timeslot.AFTERNOON, Location.HLL114, contact1, 60);
+        Event event1 = new Event(date1, Timeslot.EVENING, Location.BE_AUD, contact1, 60);
 
-        System.out.println(event.compareTo(event1));
+        Date date2 = new Date("12/25/2023");
+        Contact contact2 = new Contact(Department.CS, "cs@rutgers.edu");
+        Event event2 = new Event(date2, Timeslot.EVENING, Location.BE_AUD, contact2, 60);
+
+        boolean expectedOutput = true;
+        boolean actualOutput = event1.equals(event2);
+
+        System.out.println("Test case 3 => Check if two events are equal using .equals() method");
+        if(expectedOutput == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
+    private static void testTwoEventsNotEqual() {
+        Date date1 = new Date("11/18/2023");
+        Contact contact1 = new Contact(Department.ITI, "cs@rutgers.edu");
+        Event event1 = new Event(date1, Timeslot.MORNING, Location.HLL114, contact1, 60);
+
+        Date date2 = new Date("10/22/2023");
+        Contact contact2 = new Contact(Department.CS, "cs@rutgers.edu");
+        Event event2 = new Event(date2, Timeslot.EVENING, Location.BE_AUD, contact2, 120);
+
+        boolean expectedOutput = false;
+        boolean actualOutput = event1.equals(event2);
+
+        System.out.println("Test case 4 => Check if two events are not equal using .equals() method");
+        if(expectedOutput == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
     }
 }

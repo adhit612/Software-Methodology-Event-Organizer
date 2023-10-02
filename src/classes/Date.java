@@ -1,7 +1,6 @@
 package classes;
 
 import java.util.Calendar;
-import java.util.Optional;
 
 public class Date implements Comparable<Date> {
     /**
@@ -214,11 +213,6 @@ public class Date implements Comparable<Date> {
         testDaysInFeb_NonLeap();
         testDaysInFeb_Leap();
         testMonth_OutOfRange();
-
-        System.out.println("COMPARING DATES CHECK");
-        Date one = new Date("5/2/2023");
-        Date two = new Date("4/15/2024");
-        System.out.println(two.compareTo(one));
     }
 
     private static void testDaysInFeb_NonLeap() {

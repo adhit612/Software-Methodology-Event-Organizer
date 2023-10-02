@@ -4,11 +4,6 @@ public class EventCalendar {
 
     /**
      * TO DO:
-     * implement print
-     * implement printByDate()
-     * implement printByCampus()
-     * implement printByDepartment
-     * Timeslot add toString so user can type morning, afternoon, evening
 
      * COMPLETED:
      *Implement constructor

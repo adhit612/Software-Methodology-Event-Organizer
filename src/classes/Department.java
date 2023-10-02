@@ -32,13 +32,4 @@ public enum Department {
         }
     }; //constants
 
-    public static void main(String[] args) {
-
-        Department d = Department.CS;
-        System.out.println(d.name());
-    }
-
-
-
-
 }

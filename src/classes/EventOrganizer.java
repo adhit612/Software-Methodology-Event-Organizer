@@ -24,7 +24,7 @@ public class EventOrganizer {
             String line = scanner.nextLine();
 
             if(line.equals("Q")){
-                System.out.println("Program terminated. You should not process this line.");
+                System.out.println("Event Organizer terminated.");
                 break;
             }
 
