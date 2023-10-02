@@ -9,19 +9,19 @@ public enum Timeslot {
     MORNING(10,30) {
         @Override
         public String toString() {
-            return "10:30am";
+            return "10:30";
         }
     },
     AFTERNOON(2,0) {
         @Override
         public String toString() {
-            return "2:00pm";
+            return "2:00";
         }
     },
     EVENING(6,30) {
         @Override
         public String toString() {
-            return "6:30pm";
+            return "6:30";
         }
     };
 

@@ -53,37 +53,41 @@ public class Date implements Comparable<Date> {
 
         //check if valid month
         if(!isValidMonth(this.month)) {
-            System.out.println("Not valid month for month " + this.month);
+            //System.out.println("Not valid month for month " + this.month);
             return false;
         }
 
         //check if valid day
         if(isLeap(this.year) && this.month == FEB && this.day > FEBLEAPMAX) {
-            System.out.println("in leap not valid");
+           //System.out.println("in leap not valid");
             return false;
         }
         else if(!isLeap(this.year) && this.month == FEB && this.day > FEBNONLEAPMAX) {
-            System.out.println("In leap non valid");
+            //System.out.println("In leap non valid");
             return false;
         }
         else if(hasThirtyOneDays(this.month) && this.day > THIRTYONEMAX) {
-            System.out.println("in has thirty one days");
+            //System.out.println("in has thirty one days");
             return false;
         }
         else {
-            if(this.day > THIRTYMAX) {
-                System.out.println("in else");
+            if(this.day > THIRTYMAX && !hasThirtyOneDays(this.month)) {
+                //System.out.println("in else");
                 return false;
             }
         }
 
         if(checkIfWithinBounds(this.month, this.year, this.day) > 0) { //current date is after the time limit
-            System.out.println("is not within bounds");
+            //System.out.println("is not within bounds");
+            return false;
+        }
+
+        if(checkIfInPast(this.month,this.year,this.day) > 0){
             return false;
         }
 
         //all else fails...
-        System.out.println("Valid date");
+        //System.out.println("Valid date");
         return true;
     }
 
@@ -129,16 +133,27 @@ public class Date implements Comparable<Date> {
     private int checkIfWithinBounds(int month, int year, int day) {
         Calendar aheadDate = Calendar.getInstance();
         aheadDate.add(Calendar.MONTH, 6);
-        System.out.println(aheadDate.getTime());
+        //System.out.println(aheadDate.getTime());
 
         //current date
         Calendar currDate = Calendar.getInstance();
         currDate.set(Calendar.DAY_OF_MONTH, day);
         currDate.set(Calendar.MONTH, month);
         currDate.set(Calendar.YEAR, year);
-        System.out.println(currDate.getTime());
+        //System.out.println(currDate.getTime());
 
         return currDate.compareTo(aheadDate);
+    }
+
+    private int checkIfInPast(int month, int year, int day){
+        Calendar currDate = Calendar.getInstance();
+
+        Calendar dateAtHand = Calendar.getInstance();
+        dateAtHand.set(Calendar.DAY_OF_MONTH, day);
+        dateAtHand.set(Calendar.MONTH, month);
+        dateAtHand.set(Calendar.YEAR, year);
+
+        return currDate.compareTo(dateAtHand);
     }
 
     @Override
@@ -162,14 +177,26 @@ public class Date implements Comparable<Date> {
         if(this.year < date.year) {
             return -1;
         }
+        else if(this.year > date.year){
+            return 1;
+        }
         else if(this.month < date.month) {
             return -1;
+        }
+        else if(this.month > date.month){
+            return 1;
         }
         else if(this.day < date.day) {
             return -1;
         }
+        else if(this.day > date.day){
+            return 1;
+        }
         else if(this.day == date.day && this.month == date.month && this.year == date.year) {
             return 0;
+        }
+        else{
+            return 1;
         }
 
 //        Calendar one = Calendar.getInstance();
@@ -181,16 +208,18 @@ public class Date implements Comparable<Date> {
 //        two.set(Calendar.DAY_OF_MONTH,date.day);
 //        two.set(Calendar.MONTH,date.month);
 //        two.set(Calendar.YEAR,date.year);
-
-        return 1;
     }
 
     public static void main(String [] args) {
         testDaysInFeb_NonLeap();
         testDaysInFeb_Leap();
         testMonth_OutOfRange();
-    }
 
+        System.out.println("COMPARING DATES CHECK");
+        Date one = new Date("5/2/2023");
+        Date two = new Date("4/15/2024");
+        System.out.println(two.compareTo(one));
+    }
 
     private static void testDaysInFeb_NonLeap() {
         Date date = new Date("2/30/2023");
@@ -204,7 +233,6 @@ public class Date implements Comparable<Date> {
             System.out.println("failed");
         }
     }
-
     private static void testDaysInFeb_Leap() {
         Date date = new Date("2/29/2024");
         boolean expectedOut = true;

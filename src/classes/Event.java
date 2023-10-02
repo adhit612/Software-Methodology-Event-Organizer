@@ -1,5 +1,7 @@
 package classes;
 
+import com.sun.source.doctree.BlockTagTree;
+
 import java.sql.Time;
 import java.util.Calendar;
 
@@ -7,6 +9,7 @@ public class Event implements Comparable<Event> {
 
     /**
      * TO DO:
+     * Add testBedMain()
 
      * COMPLETED:
      * Override equals()
@@ -28,19 +31,57 @@ public class Event implements Comparable<Event> {
         this.duration = duration;
     }
 
+    public Event(Date date, Timeslot startTime, Location location){
+        this.date = date;
+        this.startTime = startTime;
+        this.location = location;
+    }
+
     @Override
     public String toString() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(this.date);
-        return "[Event Date: " + this.date.toString() + "] [Start: " + this.startTime.toString() + "] [End: " + this.startTime.toString() + duration + "] @" + this.location + "(" + this.location.getBuilding() + "," + this.location.getCampus() + ") [Contact: " + this.contact.getDepartment().toString() + ", " + this.contact.getEmail() + "]";
+        int endHour = this.startTime.getHours();
+        int endMinute = 0;
+        if(this.startTime.getMins() + this.duration >= 60) {
+            endHour += ((this.duration + this.startTime.getMins()) / 60);
+            endMinute = ((this.duration+this.startTime.getMins()) % 60);
+        }
+        else {
+            endMinute = this.startTime.getMins() + this.duration;
+        }
+
+        String beginAttachment = "";
+        String endAttachment = "";
+        if(this.startTime == Timeslot.MORNING && endHour == 12) {
+            beginAttachment = "am";
+            endAttachment = "pm";
+        }
+        else if(this.startTime == Timeslot.MORNING) {
+            beginAttachment = "am";
+            endAttachment = "am";
+        }
+        else {
+            beginAttachment = "pm";
+            endAttachment = "pm";
+        }
+
+        if(endMinute == 0) {
+            return "[Event Date: " + this.date.toString() + "] [Start: " + this.startTime.toString() + beginAttachment + "] [End: " + endHour + ":" + endMinute + "0" + endAttachment + "] @" + this.location + "(" + this.location.getBuilding() + "," + this.location.getCampus() + ") [Contact: " + this.contact.getDepartment().toString() + ", " + this.contact.getEmail() + "]";
+        }
+        return "[Event Date: " + this.date.toString() + "] [Start: " + this.startTime.toString() + beginAttachment + "] [End: " + endHour + ":" + endMinute + endAttachment + "] @" + this.location + "(" + this.location.getBuilding() + "," + this.location.getCampus() + ") [Contact: " + this.contact.getDepartment().toString() + ", " + this.contact.getEmail() + "]";
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof Event){
             Event event = (Event)obj;
-            return event.date.equals(this.date) && event.startTime.equals(this.startTime)
-                    && event.location.equals(this.location) && event.contact.equals(this.contact);
+            if(event.contact == null || this.contact == null){
+                return event.date.equals(this.date) && event.startTime.equals(this.startTime)
+                        && event.location.equals(this.location);
+            }
+            else{
+                return event.date.equals(this.date) && event.startTime.equals(this.startTime)
+                        && event.location.equals(this.location) && event.contact.getDepartment().equals(this.contact.getDepartment()) && event.contact.getEmail().equals(this.contact.getEmail());
+            }
         }
         return false;
     }
@@ -92,11 +133,11 @@ public class Event implements Comparable<Event> {
     public static void main(String[] args) {
         Contact contact = new Contact(Department.CS, "cs@rutgers.edu");
         Date date = new Date("2/24/2024");
-        Event event = new Event(date, Timeslot.MORNING, Location.HIL114, contact, 30);
+        Event event = new Event(date, Timeslot.MORNING, Location.HLL114, contact, 30);
 
         Contact contact1 = new Contact(Department.CS, "cs@rutgers.edu");
         Date date1 = new Date("2/24/2024");
-        Event event1 = new Event(date1, Timeslot.AFTERNOON, Location.HIL114, contact1, 60);
+        Event event1 = new Event(date1, Timeslot.AFTERNOON, Location.HLL114, contact1, 60);
 
         System.out.println(event.compareTo(event1));
     }

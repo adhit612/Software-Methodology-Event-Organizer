@@ -32,7 +32,8 @@ public class Contact {
         }
         else {
             dep = false;
-            System.out.println("Incorrect department");
+            return false;
+            //System.out.println("Incorrect department");
         }
 
         //Test email
@@ -47,7 +48,8 @@ public class Contact {
         }
         else {
             mail = false;
-            System.out.println("Incorrect email");
+            return false;
+            //System.out.println("Incorrect email");
         }
 
         if(dep && mail) {

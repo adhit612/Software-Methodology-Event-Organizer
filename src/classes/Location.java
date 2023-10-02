@@ -1,7 +1,7 @@
 package classes;
 
 public enum Location {
-    HIL114("Hill Center","Busch"),
+    HLL114("Hill Center","Busch"),
     ARC103("Allison Road Classroom","Busch"),
     BE_AUD("Beck Hall","Livingston"),
     TIL232("Tillet Hall","Livingston"),
