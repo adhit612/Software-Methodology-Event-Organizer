@@ -2,10 +2,16 @@ package classes;
 
 import java.util.Calendar;
 
+/**
+ * Descriptive sentence.
+ * Elaborate.
+ * @author Abhishek Thakare, Adhit Thakur
+ */
+
 public class Date implements Comparable<Date> {
     /**
      * TO DO:
-     *
+     * <p>
      * COMPLETED:
      * equals()
      * isValid()
@@ -40,7 +46,7 @@ public class Date implements Comparable<Date> {
     public static final int THIRTYMAX = 30;
 
     public Date(String date) {
-        String [] parts = date.split("/");
+        String[] parts = date.split("/");
         this.year = Integer.parseInt(parts[2]);
         this.month = Integer.parseInt(parts[0]) - 1;
         this.day = Integer.parseInt(parts[1]);
@@ -51,100 +57,83 @@ public class Date implements Comparable<Date> {
         //use for testBed main method
 
         //check if valid month
-        if(!isValidMonth(this.month)) {
-            //System.out.println("Not valid month for month " + this.month);
+        if (!isValidMonth(this.month)) {
             return false;
         }
 
         //check if valid day
-        if(isLeap(this.year) && this.month == FEB && this.day > FEBLEAPMAX) {
-           //System.out.println("in leap not valid");
+        if (isLeap(this.year) && this.month == FEB
+                && this.day > FEBLEAPMAX) {
             return false;
         }
-        else if(!isLeap(this.year) && this.month == FEB && this.day > FEBNONLEAPMAX) {
-            //System.out.println("In leap non valid");
+        else if (!isLeap(this.year) && this.month == FEB
+                && this.day > FEBNONLEAPMAX) {
             return false;
         }
-        else if(hasThirtyOneDays(this.month) && this.day > THIRTYONEMAX) {
-            //System.out.println("in has thirty one days");
+        else if (hasThirtyOneDays(this.month) && this.day > THIRTYONEMAX) {
             return false;
         }
         else {
-            if(this.day > THIRTYMAX && !hasThirtyOneDays(this.month)) {
-                //System.out.println("in else");
+            if (this.day > THIRTYMAX && !hasThirtyOneDays(this.month)) {
                 return false;
             }
         }
-
-        if(checkIfWithinBounds(this.month, this.year, this.day) > 0) { //current date is after the time limit
-            //System.out.println("is not within bounds");
-            return false;
-        }
-
-        if(checkIfInPast(this.month,this.year,this.day) > 0){
-            return false;
-        }
-
         //all else fails...
-        //System.out.println("Valid date");
         return true;
     }
 
     private boolean hasThirtyOneDays(int month) {
-        if(month == JAN || month == MAR || month == MAY || month == JUL || month == AUG || month == OCT || month == DEC) {
+        if (month == JAN || month == MAR || month == MAY || month == JUL
+                || month == AUG || month == OCT || month == DEC) {
             return true;
         }
         return false;
     }
 
     private boolean isLeap(int year) {
-//        System.out.println("In isLeap with " + year);
-        if(year%QUADRENNIAL == 0) {
-            if(year%CENTENNIAL == 0) {
-                if(year%QUATERCENTENNIAL == 0) {
-//                    System.out.println("Is leap year");
-                     return true;
+        if (year % QUADRENNIAL == 0) {
+            if (year % CENTENNIAL == 0) {
+                if (year % QUATERCENTENNIAL == 0) {
+                    return true;
                 }
                 else {
-//                    System.out.println("In not leap year 2");
                     return false;
                 }
             }
             else {
-//                System.out.println("Is leap year 2");
                 return true;
             }
         }
         else {
-//            System.out.println("In not leap year 3");
             return false;
         }
     }
 
     private boolean isValidMonth(int month) {
-        if(month == JAN || month == FEB || month == MAR || month == APR || month == MAY || month == JUN || month == JUL
-        && month == AUG || month == SEP || month == OCT || month == NOV || month == DEC) {
+        if (month == JAN || month == FEB || month == MAR || month == APR
+                || month == MAY || month == JUN || month == JUL
+                || month == AUG || month == SEP || month == OCT
+                || month == NOV || month == DEC) {
             return true;
         }
         return false;
     }
 
-    private int checkIfWithinBounds(int month, int year, int day) {
+
+    public int checkIfWithinBounds(int month, int year, int day) {
         Calendar aheadDate = Calendar.getInstance();
         aheadDate.add(Calendar.MONTH, 6);
-        //System.out.println(aheadDate.getTime());
 
         //current date
         Calendar currDate = Calendar.getInstance();
         currDate.set(Calendar.DAY_OF_MONTH, day);
         currDate.set(Calendar.MONTH, month);
         currDate.set(Calendar.YEAR, year);
-        //System.out.println(currDate.getTime());
 
         return currDate.compareTo(aheadDate);
     }
 
-    private int checkIfInPast(int month, int year, int day){
+    public int checkIfInPast(int month, int year, int day) {
         Calendar currDate = Calendar.getInstance();
 
         Calendar dateAtHand = Calendar.getInstance();
@@ -160,9 +149,21 @@ public class Date implements Comparable<Date> {
         return this.month + 1 + "/" + this.day + "/" + this.year;
     }
 
+    public int getMonth() {
+        return this.month;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
+
+    public int getDay() {
+        return this.day;
+    }
+
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Date) {
+        if (obj instanceof Date) {
             Date date = (Date) obj;
             return (date.day == this.day) && (date.month == this.month)
                     && (date.year == this.year);
@@ -173,82 +174,152 @@ public class Date implements Comparable<Date> {
     @Override
     public int compareTo(Date date) {
 
-        if(this.year < date.year) {
+        if (this.year < date.year) {
             return -1;
         }
-        else if(this.year > date.year){
+        else if (this.year > date.year) {
             return 1;
         }
-        else if(this.month < date.month) {
+        else if (this.month < date.month) {
             return -1;
         }
-        else if(this.month > date.month){
+        else if (this.month > date.month) {
             return 1;
         }
-        else if(this.day < date.day) {
+        else if (this.day < date.day) {
             return -1;
         }
-        else if(this.day > date.day){
+        else if (this.day > date.day) {
             return 1;
         }
-        else if(this.day == date.day && this.month == date.month && this.year == date.year) {
+        else if (this.day == date.day && this.month == date.month
+                && this.year == date.year) {
             return 0;
         }
-        else{
+        else {
             return 1;
         }
-
-//        Calendar one = Calendar.getInstance();
-//        one.set(Calendar.DAY_OF_MONTH,this.day);
-//        one.set(Calendar.MONTH,this.month);
-//        one.set(Calendar.YEAR,this.year);
-//
-//        Calendar two = Calendar.getInstance();
-//        two.set(Calendar.DAY_OF_MONTH,date.day);
-//        two.set(Calendar.MONTH,date.month);
-//        two.set(Calendar.YEAR,date.year);
     }
 
-    public static void main(String [] args) {
+    public static void main(String[] args) {
         testDaysInFeb_NonLeap();
+        testFutureDatesOutOfRange();
+        testPastDateOutOfRange();
+        testDateFormatting();
+        testMaxDaysInOct();
         testDaysInFeb_Leap();
         testMonth_OutOfRange();
+        testLeadingZeros();
     }
 
     private static void testDaysInFeb_NonLeap() {
         Date date = new Date("2/30/2023");
         boolean expectedOut = false;
         boolean actualOutput = date.isValid();
-        System.out.println("Test case 1 => # of days in February in a non-leap year");
-        if(expectedOut == actualOutput) {
+        System.out.println("Test case 1 => # of days in February"
+                + " in a non-leap year");
+        if (expectedOut == actualOutput) {
             System.out.println("succeeded");
         }
         else {
             System.out.println("failed");
         }
     }
+
+    private static void testFutureDatesOutOfRange() {
+        Date date = new Date("5/20/2024");
+        int expectedOut = 1;
+        int actualOutput = date.checkIfWithinBounds(date.getMonth(),
+                date.getYear(), date.getDay());
+        System.out.println("Test case 2 => Days that are outside"
+                + " of 6-month range");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
+
+    private static void testPastDateOutOfRange() {
+        Date date = new Date("1/16/2023");
+        int expectedOut = 1;
+        int actualOutput = date.checkIfInPast(date.getMonth(),
+                date.getYear(), date.getDay());
+        System.out.println("Test case 3 => Days that are in the past");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
+
+    private static void testDateFormatting() {
+        Date date = new Date("05/08/24");
+        boolean expectedOut = false;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case 4 => Check if date"
+                + " is entered properly");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
+
+    private static void testMaxDaysInOct() {
+        Date date = new Date("10/32/2023");
+        boolean expectedOut = false;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case 5 => Should not allow days past"
+                + " maximum of October");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
+        }
+    }
+
     private static void testDaysInFeb_Leap() {
         Date date = new Date("2/29/2024");
         boolean expectedOut = true;
         boolean actualOutput = date.isValid();
-        System.out.println("Test case 2 => # of days in February in a leap yr");
-        if(expectedOut == actualOutput) {
+        System.out.println("Test case 6 => # of days in February"
+                + " in a leap yr");
+        if (expectedOut == actualOutput) {
             System.out.println("succeeded");
         }
         else {
             System.out.println("failed");
         }
     }
+
     private static void testMonth_OutOfRange() {
         Date date = new Date("1/30/2024");
         boolean expectedOut = true;
         boolean actualOutput = date.isValid();
-        System.out.println("Test case 3 => Is month in 6-month frame?");
-        if(expectedOut == actualOutput) {
-            System.out.println("succeeded, meaning date is valid");
+        System.out.println("Test case 7 => Is month in 6-month frame?");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
         }
         else {
-            System.out.println("failed, date not valid");
+            System.out.println("failed");
+        }
+    }
+
+    private static void testLeadingZeros() {
+        Date date = new Date("00012/00010/0002023");
+        boolean expectedOut = true;
+        boolean actualOutput = date.isValid();
+        System.out.println("Test case 8 => Check effect of leading 0's");
+        if (expectedOut == actualOutput) {
+            System.out.println("succeeded");
+        }
+        else {
+            System.out.println("failed");
         }
     }
 }

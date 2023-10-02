@@ -1,5 +1,11 @@
 package classes;
 
+/**
+ * Descriptive sentence.
+ * Elaborate.
+ * @author Abhishek Thakare, Adhit Thakur
+ */
+
 public class Contact {
     /**
      * TO DO:
@@ -18,6 +24,7 @@ public class Contact {
     public Department getDepartment() {
         return department;
     }
+
     public String getEmail() {
         return email;
     }
@@ -27,7 +34,11 @@ public class Contact {
         boolean mail = false;
 
         //Test department
-        if(this.department == Department.CS || this.department == Department.EE || this.department == Department.ITI || this.department == Department.MATH || this.department == Department.BAIT) {
+        if (this.department == Department.CS ||
+                this.department == Department.EE
+                || this.department == Department.ITI
+                || this.department == Department.MATH
+                || this.department == Department.BAIT) {
             dep = true;
         }
         else {
@@ -38,21 +49,20 @@ public class Contact {
 
         //Test email
         int len = this.email.length();
-        int initial = len-12;
+        int initial = len - 12;
         String checker = "";
-        for(int i = initial; i < len; i++) {
+        for (int i = initial; i < len; i++) {
             checker += this.email.charAt(i);
         }
-        if(checker.equals("@rutgers.edu") && this.email.charAt(0) != '@') {
+        if (checker.equals("@rutgers.edu") && this.email.charAt(0) != '@') {
             mail = true;
         }
         else {
             mail = false;
             return false;
-            //System.out.println("Incorrect email");
         }
 
-        if(dep && mail) {
+        if (dep && mail) {
             return true;
         }
         return false;

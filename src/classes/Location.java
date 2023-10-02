@@ -1,26 +1,32 @@
 package classes;
 
+/**
+ * Descriptive sentence.
+ * Elaborate.
+ * @author Abhishek Thakare, Adhit Thakur
+ */
+
 public enum Location {
-    HLL114("Hill Center","Busch"),
-    ARC103("Allison Road Classroom","Busch"),
-    BE_AUD("Beck Hall","Livingston"),
-    TIL232("Tillet Hall","Livingston"),
-    AB2225("Academic Building","College Avenue"),
-    MU302("Murray Hall","College Avenue");
+    HLL114("Hill Center", "Busch"),
+    ARC103("Allison Road Classroom", "Busch"),
+    BE_AUD("Beck Hall", "Livingston"),
+    TIL232("Tillet Hall", "Livingston"),
+    AB2225("Academic Building", "College Avenue"),
+    MU302("Murray Hall", "College Avenue");
 
     private final String building;
     private final String campus;
 
-    Location(String building, String campus){
+    Location(String building, String campus) {
         this.building = building;
         this.campus = campus;
     }
 
-    public String getBuilding(){
+    public String getBuilding() {
         return building;
     }
 
-    public String getCampus(){
+    public String getCampus() {
         return campus;
     }
 }

@@ -1,11 +1,17 @@
 package classes;
 
+/**
+ * Descriptive sentence.
+ * Elaborate.
+ * @author Abhishek Thakare, Adhit Thakur
+ */
+
 public enum Department {
     CS {
-       @Override
-       public String toString() {
-           return "Computer Science";
-       }
+        @Override
+        public String toString() {
+            return "Computer Science";
+        }
     },
     EE {
         @Override
