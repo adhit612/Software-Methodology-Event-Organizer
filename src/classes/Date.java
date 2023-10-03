@@ -257,7 +257,7 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Main function to process test functions.
+     * Main testBed function to process test functions.
      * @param args arguments passed in.
      */
     public static void main(String[] args) {
@@ -268,9 +268,12 @@ public class Date implements Comparable<Date> {
         testLeadingZeros();
         testFutureDatesOutOfRange();
         testPastDateOutOfRange();
-
     }
 
+    /**
+     * Tests the Date in February for a non-leap year using isValid().
+     * 30 exceeds 28, so it will print "succeeded" because the date is false.
+     */
     private static void testDaysInFeb_NonLeap() {
         Date date = new Date("2/30/2023");
         boolean expectedOut = false;
@@ -285,6 +288,11 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Tests the Date in February for a leap year using isValid().
+     * Expected Output is true since 29 is possible in 2024.
+     * Prints "succeeded" since date is valid.
+     */
     private static void testDaysInFeb_Leap() {
         Date date = new Date("2/29/2024");
         boolean expectedOut = true;
@@ -299,6 +307,11 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Tests the formatting of entered Date using isValid().
+     * Actual output is false when full year is not entered.
+     * Prints "succeeded" if actual output is false.
+     */
     private static void testDateFormatting() {
         Date date = new Date("05/08/24");
         boolean expectedOut = false;
@@ -313,6 +326,11 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Tests a not possible day for the month of October using isValid().
+     * Actual output is false because the date is not valid.
+     * Prints "succeeded" when output is false.
+     */
     private static void testMaxDaysInOct() {
         Date date = new Date("10/32/2023");
         boolean expectedOut = false;
@@ -327,6 +345,11 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Tests the effect of leading zeros on entered date using isValid().
+     * Should not affect the date as long as rest is entered correctly.
+     * Prints "succeeded" if actual output is true, as date is proper.
+     */
     private static void testLeadingZeros() {
         Date date = new Date("00012/00010/0002023");
         boolean expectedOut = true;
@@ -340,6 +363,11 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Tests 6-month limit when entering date using checkIfWithinBounds().
+     * Actual output is 1 if date is out of bounds, -1 otherwise.
+     * Prints "succeeded" if output is 1.
+     */
     private static void testFutureDatesOutOfRange() {
         Date date = new Date("5/20/2024");
         int expectedOut = 1;
@@ -355,6 +383,11 @@ public class Date implements Comparable<Date> {
         }
     }
 
+    /**
+     * Tests if entered date is in the past, which is not valid, using checkIfInPast().
+     * Actual output is 1 if date is in the past, -1 if not.
+     * Prints "succeeded" if actual output matches the expected and returns 1.
+     */
     private static void testPastDateOutOfRange() {
         Date date = new Date("1/16/2023");
         int expectedOut = 1;

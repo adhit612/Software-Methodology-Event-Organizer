@@ -13,6 +13,8 @@ public class Event implements Comparable<Event> {
     private Contact contact;
     private int duration;
 
+    public static final int HOUR = 60;
+
     /**
      * Constructor to initialize an Event when adding.
      * @param date the Event's Date object.
@@ -50,9 +52,9 @@ public class Event implements Comparable<Event> {
     public String toString() {
         int endHour = this.startTime.getHours();
         int endMinute = 0;
-        if (this.startTime.getMins() + this.duration >= 60) {
-            endHour += ((this.duration + this.startTime.getMins()) / 60);
-            endMinute = ((this.duration + this.startTime.getMins()) % 60);
+        if (this.startTime.getMins() + this.duration >= HOUR) {
+            endHour += ((this.duration + this.startTime.getMins()) / HOUR);
+            endMinute = ((this.duration + this.startTime.getMins()) % HOUR);
         }
         else {
             endMinute = this.startTime.getMins() + this.duration;
@@ -191,7 +193,7 @@ public class Event implements Comparable<Event> {
     }
 
     /**
-     * Main method to run test cases.
+     * Main testBed method to run test cases.
      * @param args Arguments entered.
      */
     public static void main(String[] args) {
@@ -201,6 +203,10 @@ public class Event implements Comparable<Event> {
         testTwoEventsNotEqual();
     }
 
+    /**
+     * Tests if time changes from AM to PM after adding duration to morning event using toString().
+     * Prints "succeeded" if output matches expected output, else "failed".
+     */
     private static void testTimeChangeFromAMtoPM() {
         Date date = new Date("1/30/2024");
         Contact contact = new Contact(Department.CS, "cs@rutgers.edu");
@@ -222,6 +228,11 @@ public class Event implements Comparable<Event> {
 
     }
 
+    /**
+     * Tests comparison between events with same Date using compareTo().
+     * Compares timeslots to order them correctly.
+     * Prints "succeeded" if event 1 is before event 2 and output is -1, "failed" otherwise.
+     */
     private static void testCompareToForEqualDates() {
         Date date1 = new Date("3/12/2024");
         Contact contact1 = new Contact(Department.BAIT, "bait@rutgers.edu");
@@ -246,6 +257,11 @@ public class Event implements Comparable<Event> {
         }
     }
 
+    /**
+     * Tests if two created events are equal using equals().
+     * Actual output should match the expected output of true.
+     * Prints "succeeded" if actual output is true, "failed" otherwise.
+     */
     private static void testTwoEventsEqual() {
         Date date1 = new Date("12/25/2023");
         Contact contact1 = new Contact(Department.CS, "cs@rutgers.edu");
@@ -270,6 +286,11 @@ public class Event implements Comparable<Event> {
         }
     }
 
+    /**
+     * Tests if two created events are not equal using equals().
+     * Actual output should match the expected output of false.
+     * Prints "succeeded" if actual output is false, "failed" otherwise.
+     */
     private static void testTwoEventsNotEqual() {
         Date date1 = new Date("11/18/2023");
         Contact contact1 = new Contact(Department.ITI, "iti@rutgers.edu");
