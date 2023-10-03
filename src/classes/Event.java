@@ -1,28 +1,26 @@
 package classes;
 
 /**
- * Descriptive sentence.
- * Elaborate.
+ * Class that declares the Event object.
+ * Events contain instances of other declared objects.
+ * Will be created and manipulated based on user input.
  * @author Abhishek Thakare, Adhit Thakur
  */
 public class Event implements Comparable<Event> {
-
-    /**
-     * TO DO:
-     * Add testBedMain()
-     * <p>
-     * COMPLETED:
-     * Override equals()
-     * Add compareTo()
-     * Override toString()
-     */
-
     private Date date;
     private Timeslot startTime;
     private Location location;
     private Contact contact;
     private int duration;
 
+    /**
+     * Constructor to initialize an Event when adding.
+     * @param date the Event's Date object.
+     * @param startTime the Event's Timeslot enum.
+     * @param location the Event's Location enum.
+     * @param contact the Event's Contact enum.
+     * @param duration the Event's integer duration.
+     */
     public Event(Date date, Timeslot startTime, Location location, Contact contact, int duration) {
         this.date = date;
         this.startTime = startTime;
@@ -31,12 +29,23 @@ public class Event implements Comparable<Event> {
         this.duration = duration;
     }
 
+    /**
+     * Constructor to initialize an Event when removing.
+     * Fewer parameters are needed when removing.
+     * @param date the Event's Date object.
+     * @param startTime the Event's Timeslot enum.
+     * @param location the Event's Location enum.
+     */
     public Event(Date date, Timeslot startTime, Location location) {
         this.date = date;
         this.startTime = startTime;
         this.location = location;
     }
 
+    /**
+     * toString() method to print an Event in the client requested format.
+     * @return a String containing the correctly formatted data of one Event.
+     */
     @Override
     public String toString() {
         int endHour = this.startTime.getHours();
@@ -81,6 +90,12 @@ public class Event implements Comparable<Event> {
                 + this.contact.getEmail() + "]";
     }
 
+    /**
+     * Determine if two Events are equal.
+     * Compare the Contacts, Dates, Timeslots, and Locations.
+     * @param obj The object to be compared if it is of Event type.
+     * @return true if the Events are equal, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Event) {
@@ -101,6 +116,12 @@ public class Event implements Comparable<Event> {
         return false;
     }
 
+    /**
+     * Compare two events.
+     * Compare the Dates and Timeslots.
+     * @param event the object to be compared.
+     * @return -1 if "this" earlier than event, 1 if "this" later than event, 0 if equal.
+     */
     @Override
     public int compareTo(Event event) {
         if (this.date.compareTo(event.date) == -1) { //this is earlier than event
@@ -129,26 +150,50 @@ public class Event implements Comparable<Event> {
         }
     }
 
+    /**
+     * Return the Event's Date.
+     * @return Event's Date object.
+     */
     public Date getDate() {
         return this.date;
     }
 
+    /**
+     * Return the Event's Timeslot.
+     * @return Event's Timeslot object.
+     */
     public Timeslot getTimeSlot() {
         return this.startTime;
     }
 
+    /**
+     * Return the Event's Location.
+     * @return Event's Location object.
+     */
     public Location getLocation() {
         return this.location;
     }
 
+    /**
+     * Return the Event's Contact.
+     * @return Event's Contact object.
+     */
     public Contact getContact() {
         return this.contact;
     }
 
+    /**
+     * Return the Event's Duration.
+     * @return Event's integer Duration.
+     */
     public int getDuration() {
         return this.duration;
     }
 
+    /**
+     * Main method to run test cases.
+     * @param args Arguments entered.
+     */
     public static void main(String[] args) {
         testTimeChangeFromAMtoPM();
         testCompareToForEqualDates();
@@ -227,7 +272,7 @@ public class Event implements Comparable<Event> {
 
     private static void testTwoEventsNotEqual() {
         Date date1 = new Date("11/18/2023");
-        Contact contact1 = new Contact(Department.ITI, "cs@rutgers.edu");
+        Contact contact1 = new Contact(Department.ITI, "iti@rutgers.edu");
         Event event1 = new Event(date1, Timeslot.MORNING,
                 Location.HLL114, contact1, 60);
 

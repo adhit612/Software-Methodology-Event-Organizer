@@ -1,42 +1,32 @@
 package classes;
 
 /**
- * Descriptive sentence.
- * Elaborate.
+ * Class that manages an Array of events.
+ * Maintains an Event array through add, remove, and print operations.
  * @author Abhishek Thakare, Adhit Thakur
  */
 public class EventCalendar {
-
-    /**
-     * TO DO:
-     * <p>
-     * COMPLETED:
-     * Implement constructor
-     * implement find
-     * implement grow
-     * implement add
-     * implement remove
-     * implement contains
-     * implement print
-     * implement printByDate()
-     * implement printByCampus()
-     * implement printByDepartment
-     * Timeslot add toString so user can type morning, afternoon, evening
-     */
-
-    private Event[] events; //the array holding the list of events
+    private Event[] events;
     private int numEvents;
     public static final int NOT_FOUND = -1;
     public static final int ARRAY_SIZE_ADDER = 4;
 
-
+    /**
+     * Constructor to initialize an EventCalendar.
+     * @param events The array of Events, initially size 4.
+     * @param numEvents The number of events, initially 0.
+     */
     public EventCalendar(Event[] events, int numEvents) {
         this.events = events;
         this.numEvents = numEvents;
     }
 
+    /**
+     * Locate a given Event within the EventCalendar.
+     * @param event the event to be searched for.
+     * @return The index of the event if found, NOT_FOUND otherwise.
+     */
     private int find(Event event) {
-        //search event in the list
         for (int i = 0; i < this.events.length; i++) {
             if (this.events[i].equals(event)) {
                 return i;
@@ -45,8 +35,12 @@ public class EventCalendar {
         return NOT_FOUND;
     }
 
+    /**
+     * Grow the EventCalendar if max capacity is reached.
+     * If the last element in the EventCalendar is non-null, the array needs to grow.
+     * Makes 4 more spaces for additional Events.
+     */
     private void grow() {
-        //increase capacity by 4
         Event[] newEvents = new Event[this.events.length + ARRAY_SIZE_ADDER];
         for (int i = 0; i < this.events.length; i++) {
             newEvents[i] = this.events[i];
@@ -54,8 +48,14 @@ public class EventCalendar {
         this.events = newEvents;
     }
 
+    /**
+     * Add an event to the calendar.
+     * Checking if valid Event not done here.
+     * Simply adding to Calendar.
+     * @param event The Event to be added.
+     * @return true if added to EventCalendar, false otherwise.
+     */
     public boolean add(Event event) {
-        //add event to calendar, handle array resizing
         if (this.events[this.events.length - 1] != null) {
             grow();
         }
@@ -70,8 +70,13 @@ public class EventCalendar {
         return false;
     }
 
+    /**
+     * Remove an Event from the EventCalendar.
+     * Given an Event, remove that Event entirely from the EventCalendar.
+     * @param event The Event to be removed.
+     * @return true if Event was removed, false otherwise.
+     */
     public boolean remove(Event event) {
-        //remove event from calendar, handle array resizing
         Event[] newEvents = new Event[this.events.length];
         int j = find(event);
         if (j == NOT_FOUND) {
@@ -91,6 +96,11 @@ public class EventCalendar {
         return true;
     }
 
+    /**
+     * Check if Event is within the EventCalendar.
+     * @param event The Event to be checked for.
+     * @return true if Event is in EventCalendar, false otherwise.
+     */
     public boolean contains(Event event) {
         for (int i = 0; i < this.events.length; i++) {
             if (this.events[i] == null) {
@@ -103,18 +113,24 @@ public class EventCalendar {
         return false;
     }
 
+    /**
+     * Print the EventCalendar unsorted.
+     * Based on the order added, print the EventCalendar.
+     */
     public void print() {
-        System.out.println("* Event calendar *");
         for (int i = 0; i < this.events.length; i++) {
             if (this.events[i] != null) {
                 System.out.println(this.events[i].toString());
             }
         }
-        System.out.println("* end of event calendar *");
     }
 
+    /**
+     * Print EventCalendar sorted by Date and Timeslot.
+     * First sort by Date then Timeslot within each date.
+     * Done using insertion sort in place.
+     */
     public void printByDate() {
-        System.out.println("* Event calendar by event date and start time *");
         for (int i = 1; i < this.events.length; i++) {
             if (this.events[i] == null) {
                 break;
@@ -141,11 +157,14 @@ public class EventCalendar {
             }
             System.out.println(this.events[x].toString());
         }
-        System.out.println("* end of event calendar *");
     }
 
+    /**
+     * Print EventCalendar sorted by Campus and Building.
+     * First sort by Campus then Building within each Campus.
+     * Done using insertion sort in place.
+     */
     public void printByCampus() {
-        System.out.println("* Event calendar by campus and building *");
         for (int i = 1; i < this.events.length; i++) {
             if (this.events[i] == null) {
                 break;
@@ -174,12 +193,14 @@ public class EventCalendar {
             }
             System.out.println(this.events[x].toString());
         }
-
-        System.out.println("* end of event calendar *");
     }
 
+    /**
+     * Print EventCalendar sorted by Department.
+     * Sort alphabetically by Department.
+     * Done using insertion sort in place.
+     */
     public void printByDepartment() {
-        System.out.println("* Event calendar by department *");
         for (int i = 1; i < this.events.length; i++) {
             if (this.events[i] == null) {
                 break;
@@ -201,15 +222,25 @@ public class EventCalendar {
             }
             System.out.println(this.events[x].toString());
         }
-        System.out.println("* end of event calendar *");
     }
 
+    /**
+     * Return the number of events.
+     * NOT total capacity.
+     * @return number of events currently in EventCalendar.
+     */
     public int getNumEvents() {
         return numEvents;
     }
 
+    /**
+     * Compare the Timeslots of two events.
+     * Used to sort based on Timeslots, determining which Event is earlier.
+     * @param one Event that is comparing.
+     * @param two Event that is being compared.
+     * @return true if one is earlier than two, false otherwise.
+     */
     public boolean compareTimeslots(Timeslot one, Timeslot two) {
-        //returns true if one is earlier than two
         if (one.toString().equals(two.toString())) {
             return false;
         }
